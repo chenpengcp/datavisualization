@@ -1,0 +1,206 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>SNH48-Data visualization</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#"> <img src="snh48.jpg" width="30" height="30" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="all">集资总榜 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="analysis">全团分析</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rank">土豪列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="recentPK">近期PK</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                下拉更多
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="card">模型预测</a>
+                                <a class="dropdown-item" href="#">CP榜单</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="login">登录</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/snh48/user}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="name">
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+            <!--<div class="jumbotron">-->
+                <!--<div class="media">-->
+                    <!--<img class="align-self-center mr-3 rounded-circle" src="1.jpg" alt="Generic placeholder image">-->
+                    <!--<div class="media-body  align-self-center">-->
+                        <!--<h5 class="mt-0">SNH48集资数据可视化</h5>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<hr class="my-4">-->
+                <!--<p><small>Java+Python+kafka+Mysql+Redis+Bootstrap+Echarts</small></p>-->
+                <!--<p><small>贴吧：暴走的冰女mm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微博：吹风磁暴陨石推波</small></p>-->
+                <!--<p class="lead">-->
+                    <!--<a class="btn btn-info" href="https://github.com/chenpengcp/air433_k-on" role="button">GitHub »</a>-->
+                <!--</p>-->
+            <!--</div>-->
+
+            <div class="card text-white bg-dark mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">SNH48集资数据可视化</h5>
+                    <p class="card-text">Java+Python+kafka+Mysql+Redis+Bootstrap+Echarts</p>
+                    <p class="card-text"><small class="text-muted">贴吧：暴走的冰女mm&nbsp;&nbsp;&nbsp;微博：吹风磁暴陨石推波</small></p>
+                </div>
+                <img class="card-img-bottom" th:src="@{${pic}}" alt="Card image cap">
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">个人搜索</div>
+                        <div class="card-body">
+                            <p class="card-text">通过id搜索自己的集资情况，包括集资总额、集资次数、给指定偶像的集资额、集资频率、集资时间、分析等。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">全团分析</div>
+                        <div class="card-body">
+                            <p class="card-text">通过对五团各队的集资总情况进行统计分析，用图表的方式进行计算分析。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">模型预测</div>
+                        <div class="card-body">
+                            <p class="card-text">通过对小偶像集资情况统计，分析趋势，依照往届总选数据模型预测排名。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">近期PK</div>
+                        <div class="card-body">
+                            <p class="card-text">通过手动添加近期集资PK链接，获得最新PK情况，图表呈现。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">土豪列表</div>
+                        <div class="card-body">
+                            <p class="card-text">从所有粉丝中筛选集资总额的前20位进行列表排名，隐藏一半id。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card text-white bg-dark mb-2">
+                        <div class="card-header">CP榜单</div>
+                        <div class="card-body">
+                            <p class="card-text">收集各大热门CP的集资数据以及各种排名分析。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    function search() {
+        var name = $('#main').val();
+        var s = '<ul class="list-group">';
+        $.ajax({
+            type: 'POST',
+            url: "[[${#request.getContextPath()}]]/snh48/search",
+            data: {name: name},
+            dataType: 'json',
+            success: function (result) {
+                if (result.length > 0) {
+                    for (var i = 0; i < result.length; i++) {
+                        s += '<li class="list-group-item">你为' + result[i].memberName + '一共集资了' + result[i].money + '元，集资了' + result[i].count + '次(参与一个链接算一次)，该小偶像总集资数为' + result[i].totalMoney + '元，你占她集资总额的百分比是' + toPercent(result[i].money, result[i].totalMoney) + '。</li>';
+                    }
+                } else {
+                    s += '<li class="list-group-item">输入的id有误，请重新输入正在使用的摩点id！</li>';
+                }
+                s = s + '</ul>';
+                $("#bg").html(s);
+            }
+        });
+    }
+</script>
+
+<script>
+    function bg() {
+        var name = $('#main').val();
+        var color = new Array();
+        color[0] = "";
+        color[1] = "active";
+        color[2] = "success";
+        color[3] = "warning";
+        color[4] = "danger";
+        color[5] = "info";
+        var s = '<table class="table table-responsive"><caption>你的集资信息表：</caption><thead><tr><th>成员</th><th>金额</th><th>比例</th><th>次数</th></tr></thead><tbody>';
+        $.ajax({
+            type: 'POST',
+            url: "[[${#request.getContextPath()}]]/snh48/search",
+            data: {name: name},
+            dataType: 'json',
+            success: function (result) {
+                if (result.length > 0) {
+                    for (var i = 0; i < result.length; i++) {
+                        var n = Math.floor(Math.random() * (5 + 1));
+                        s += '<tr class="' + color[n] + '"><td>' + result[i].memberName + '</td><td>' + result[i].money + '</td><td>' + toPercent(result[i].money, result[i].totalMoney) + '</td><td>' + result[i].count + '</td></tr>';
+                    }
+                    s = s + '</tbody></table>';
+                } else {
+                    s = '<p class="bg-primary">输入的id有误，请重新输入正在使用的摩点id！</p>';
+                }
+                $("#bg").html(s);
+            }
+        });
+    }
+</script>
+
+<script>
+    function toPercent(num, total) {
+        return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比
+    }
+</script>
+</body>
+</html>

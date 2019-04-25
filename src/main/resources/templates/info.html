@@ -1,0 +1,114 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="/echarts.common.min.js"></script>
+    <script src="/essos.js"></script>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>SNH48-Data visualization</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="index"> <img src="snh48.jpg" width="30" height="30" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="all">集资总榜 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="analysis">全团分析</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rank">土豪列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="recentPK">近期PK</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                下拉更多
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="card">模型预测</a>
+                                <a class="dropdown-item" href="#">CP榜单</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="login">登录</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/snh48/user}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                               name="name" th:value="${name}">
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header" th:text="${m.user.name}"></div>
+                <div class="card-body">
+                    <h5 class="card-title">集资分析</h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <caption>单推是指只给该偶像集过资，首推是指给2个以上小偶像集过资，但是给该偶像集的最多，二推即第二多，浪货指给3个以上偶像集过资且集资额较少，小号指凑人头小号</caption>
+                            <tbody>
+                            <tr><td>集资总额</td><td th:text="${m.user.totalMoney}"></td></tr>
+                            <tr><td>集资人数</td><td th:text="${m.user.count}"></td></tr>
+                            <tr><td>单推人数</td><td th:text="${m.dt}"></td></tr>
+                            <tr><td>首推人数</td><td th:text="${m.st}"></td></tr>
+                            <tr><td>二推人数</td><td th:text="${m.et}"></td></tr>
+                            <tr><td>浪货人数</td><td th:text="${m.lh}"></td></tr>
+                            <tr><td>小号人数</td><td th:text="${m.xh}"></td></tr>
+                            <tr><td>集资额>10000</td><td th:text="${m.w_1}"></td></tr>
+                            <tr><td>集资额5000-10000</td><td th:text="${m.k_5}"></td></tr>
+                            <tr><td>集资额1000-5000</td><td th:text="${m.k_1}"></td></tr>
+                            <tr><td>集资额500-1000</td><td th:text="${m.b_5}"></td></tr>
+                            <tr><td>集资额100-500</td><td th:text="${m.b_1}"></td></tr>
+                            <tr><td>集资额35-100</td><td th:text="${m.ticket}"></td></tr>
+                            <tr><td>集资额<35</td><td th:text="${m.rt}"></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a th:href="@{'/snh48/toTrend?name='+${m.user.name}}" class="btn btn-info">查看趋势</a>
+                    <!--<a href="#" class="btn btn-info">查看趋势</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--<script>-->
+    <!--function toPercent(num, total) {-->
+        <!--return (Math.round(num / total * 10000) / 100.00 + "%");// 小数点后两位百分比-->
+    <!--}-->
+<!--</script>-->
+</body>
+</html>
